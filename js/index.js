@@ -2,7 +2,10 @@ var obs_slEl = document.getElementById('obs_sl');
 var obs_cEl = document.getElementById('obs_c');
 var obs_gEl = document.getElementById('obs_g');
 var temp = document.getElementById('popup');
-
+var golEL = document.getElementById('gol');
+var golSound = document.getElementById('score');
+var correctSound = document.getElementById('correct');
+var wrongSound = document.getElementById('wrong');
 
 var pertanyaanEl = document.getElementById('pertanyaan');
 var aEl = document.getElementById('jwbA');
@@ -104,6 +107,11 @@ var randomnum = 0;
 var num = 3;
 var random = 6;
 
+golEL.addEventListener("collide", function(ev) {
+  golSound.components.sound.playSound();
+  setTimeout ("golSound.components.sound.stopSound()", 3000);
+});
+
 showPertanyaan1(randomnum);
 showPertanyaan2(num);
 showPertanyaan3(random);
@@ -158,7 +166,9 @@ function check(kpt, nomer) {
       pertanyaanEl.setAttribute("position", "0 0.2 0.2");
       pertanyaanEl.setAttribute("height", "3");
       pertanyaanEl.setAttribute("width", "6");
+      correctSound.components.sound.playSound();
       setTimeout ("obs_slEl.setAttribute('visible', false)", 2000);
+      setTimeout ("correctSound.components.sound.stopSound()", 2000);
     }
     else{
       randomnum = randomnum + 1;
@@ -171,9 +181,11 @@ function check(kpt, nomer) {
       temp.setAttribute("position", "-1.2 0.2 0.2");
       temp.setAttribute("height", "3");
       temp.setAttribute("width", "6");
+      wrongSound.components.sound.playSound();
       setTimeout(function() {
         showPertanyaan1(randomnum);
-      }, 2000)     
+      }, 2000)
+      setTimeout ("wrongSound.components.sound.stopSound()", 2000);    
     }
        
   }
@@ -185,7 +197,9 @@ function check(kpt, nomer) {
       pertanyaanEl1.setAttribute("position", "0 0.2 0.2");
       pertanyaanEl1.setAttribute("height", "5");
       pertanyaanEl1.setAttribute("width", "8");
-      setTimeout ("obs_gEl.setAttribute('visible', false)", 2000);   
+      correctSound.components.sound.playSound();
+      setTimeout ("obs_gEl.setAttribute('visible', false)", 2000);
+      setTimeout ("correctSound.components.sound.stopSound()", 2000);   
     }
 
     else{
@@ -206,7 +220,9 @@ function check(kpt, nomer) {
       pertanyaanEl2.setAttribute("position", "0 0.2 0.2");
       pertanyaanEl2.setAttribute("height", "5");
       pertanyaanEl2.setAttribute("width", "8");
+      correctSound.components.sound.playSound();
       setTimeout ("obs_cEl.setAttribute('visible', false)", 2000);
+      setTimeout ("correctSound.components.sound.stopSound()", 2000);
     }
     else{
       random = random + 1;
@@ -218,8 +234,7 @@ function check(kpt, nomer) {
       }, 2000)
       
     }   
-  }
-  
+  } 
 }
 
 function showPertanyaan1(nomor) {
@@ -246,4 +261,3 @@ function showPertanyaan3(nomor) {
   jwbCEl.setAttribute("value", opt_C[nomor]);
   jwbDEl.setAttribute("value", opt_D[nomor])
 }
-
